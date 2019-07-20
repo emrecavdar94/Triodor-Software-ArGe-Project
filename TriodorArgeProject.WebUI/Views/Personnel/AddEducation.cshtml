@@ -1,0 +1,97 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.MaterialCosts
+@{ ViewBag.Title = "AddMaterialCosts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Add Material Costs</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Support Project</a></li>
+                <li class="breadcrumb-item active">Add Material Cost</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-block">
+                    @if (TempData["mesaj"] != null)
+                    {
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                @TempData["mesaj"]
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
+
+                            <div class="row p-t-20">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Material</label>
+                                        <input type="text" id="description" name="Description" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Start Year</label>
+                                        <input type="text" id="description" name="StartYear" placeholder="ex.'2015'" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">End Year</label>
+                                        <input type="text" id="description" name="EndYear" class="form-control">
+
+                                    </div>
+                                </div>
+
+
+                                <!--/span-->
+                                <!--/span-->
+                            </div>
+                            
+                            <!--/row-->
+
+                            <br />
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>

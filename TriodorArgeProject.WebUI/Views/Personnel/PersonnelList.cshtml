@@ -1,0 +1,140 @@
+﻿@model List<TriodorArgeProject.Entities.EntityClasses.Personnels>
+@{
+    ViewBag.Title = "PersonnelList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Personnel List</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Personnel</a></li>
+                <li class="breadcrumb-item active">Personnel List</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-block">
+                   <div class="card-title">
+                       @Html.ActionLink("Create", "Create", null, new {@class="btn btn-inverse" })
+                   </div>
+                    <div class="table-responsive m-t-40">
+                        <table id="myTable" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Position</th>
+                                    <th>Start Date</th>
+                                    <th>Work</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var personnelData in Model)
+                                {
+                                <tr>
+                                    <td>@personnelData.Name</td>
+                                    <td>@personnelData.Surname</td>
+                                    <td>@personnelData.Positions.Position</td>
+                                    <td>@personnelData.StartDate.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>
+                                        @if (personnelData.IsActive == true)
+                                        {
+                                            <span class="label label-success">Active</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-danger">Leaved</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = personnelData.Id }, new { @class = "btn btn-outline-info" }) |
+
+                                        @Html.ActionLink("Delete", "Delete", new { id = personnelData.Id }, new { @class = "btn btn-outline-info" })
+                                        @Html.ActionLink("Per.Info", "PersonnelInfo", new { id = personnelData.Id }, new { @class = "btn btn-outline-info" })
+
+                                    </td>
+                                </tr>
+                                }
+                                
+                               
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+
+</div>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Content/Tema/assets/plugins/datatables/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#myTable').DataTable();
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                "columnDefs": [{
+                    "visible": false,
+                    "targets": 2
+                }],
+                "order": [
+                    [2, 'asc']
+                ],
+                "displayLength": 25,
+                "drawCallback": function (settings) {
+                    var api = this.api();
+                    var rows = api.rows({
+                        page: 'current'
+                    }).nodes();
+                    var last = null;
+                    api.column(2, {
+                        page: 'current'
+                    }).data().each(function (group, i) {
+                        if (last !== group) {
+                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                            last = group;
+                        }
+                    });
+                }
+            });
+            // Order by the grouping
+            $('#example tbody').on('click', 'tr.group', function () {
+                var currentOrder = table.order()[0];
+                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
+                    table.order([2, 'desc']).draw();
+                } else {
+                    table.order([2, 'asc']).draw();
+                }
+            });
+        });
+    });
+    $('#example23').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+</script>

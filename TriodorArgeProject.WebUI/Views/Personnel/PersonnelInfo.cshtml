@@ -1,0 +1,219 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.Personnels
+@{
+    ViewBag.Title = "PersonnelInfo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Personnel List</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Personnel</a></li>
+                <li class="breadcrumb-item active">Personnel List</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-block">
+
+                    @Html.ActionLink("Add", "AddEducation", new { id = Model.Id }, new { @class = "btn btn-inverse  pull-right" })
+                    <h4 class="card-title">Educational Information</h4>
+                    <div class="table-responsive m-t-40">
+                        <table class="table stylish-table">
+                            <thead>
+                                <tr>
+
+                                    <th>Education</th>
+                                    <th>Start Year</th>
+                                    <th>End Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PersonnelEducations != null)
+                                {
+
+
+                                    foreach (var education in Model.PersonnelEducations)
+                                    {
+                                        <tr>
+
+                                            <td>@education.Description</td>
+                                            <td>@education.StartYear</td>
+                                            <td>@education.EndYear</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-block">
+
+                    @Html.ActionLink("Add", "AddAbility", new { id = Model.Id }, new { @class = "btn btn-inverse  pull-right" })
+                    <h4 class="card-title">Ability Information</h4>
+                    <div class="table-responsive m-t-40">
+                        <table class="table stylish-table">
+                            <thead>
+                                <tr>
+
+                                    <th>Ability</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PersonnelAbility != null)
+                                {
+
+
+                                    foreach (var ability in Model.PersonnelAbility)
+                                    {
+                                        <tr>
+
+                                            <td>@ability.Description</td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-block">
+
+                    @Html.ActionLink("Add", "AddWorkExperience", new { id = Model.Id }, new { @class = "btn btn-inverse  pull-right" })
+                    <h4 class="card-title">Work Experience Information</h4>
+                    <div class="table-responsive m-t-40">
+                        <table class="table stylish-table">
+                            <thead>
+                                <tr>
+
+                                    <th>Company</th>
+                                    <th>Start Year</th>
+                                    <th>End Year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.WorkExperiences != null)
+                                {
+
+
+                                    foreach (var workExp in Model.WorkExperiences)
+                                    {
+                                        <tr>
+
+                                            <td>@workExp.Description</td>
+                                            <td>@workExp.StartYear</td>
+                                            <td>@workExp.EndYear</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-block">
+
+                    @Html.ActionLink("Add", "AddCertificate", new { id = Model.Id }, new { @class = "btn btn-inverse  pull-right" })
+                    <h4 class="card-title">Certificate Information</h4>
+                    <div class="table-responsive m-t-40">
+                        <table class="table stylish-table">
+                            <thead>
+                                <tr>
+
+                                    <th>Certificate</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.PersonnelCertificates != null)
+                                {
+
+
+                                    foreach (var certificate in Model.PersonnelCertificates)
+                                    {
+                                        <tr>
+
+                                            <td>@certificate.Description</td>
+
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                        <td>No Record</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+
+</div>
+
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>

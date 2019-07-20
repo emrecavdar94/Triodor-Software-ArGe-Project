@@ -1,0 +1,107 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.Projects
+@using System.Globalization;
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Create Project</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Project</a></li>
+                <li class="breadcrumb-item active">Create Project</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-block">
+                   
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-body">
+                            @Html.HiddenFor(model => model.PCode)
+                            @Html.HiddenFor(model => model.DCode)
+                            @Html.HiddenFor(model => model.BCode)
+
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Project Name</label>
+                                        <input type="text" id="Name" name="Name" class="form-control" value="@Model.Name">
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Start Date</label>
+                                        <input type="text" class="form-control" name="StartDate" id="StartDate" value="@Model.StartDate.Value.ToString("dd/MM/yyyy")">
+                                        @Html.ValidationMessageFor(model => model.StartDate)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">End Date</label>
+                                        <input type="text" class="form-control" id="EndDate" name="EndDate" value="@Model.EndDate.Value.ToString("dd/MM/yyyy")">
+                                        @Html.ValidationMessageFor(model => model.EndDate)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Cost</label>
+                                        <div class="input-group">
+
+                                            <input type="text" class="form-control" name="Cost" id="Cost" value="@Model.Cost">
+                                            <span class="input-group-addon" id="basic-addon2">₺</span>
+                                        </div>
+                                        @Html.ValidationMessageFor(model => model.Cost)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>

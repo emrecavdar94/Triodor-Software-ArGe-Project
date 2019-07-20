@@ -1,0 +1,142 @@
+﻿@model IEnumerable<TriodorArgeProject.Entities.EntityClasses.Projects>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Project List</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Project</a></li>
+                <li class="breadcrumb-item active">Project List</li>
+            </ol>
+        </div>
+        
+    </div>
+       <div class="row">
+        <div class="col-12">
+            <div class="card">
+               
+                <!-- .left-right-aside-column-->
+                
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Import Excel", "Create", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    </div>
+
+                    <div class="table-responsive ">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PCode)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.DCode)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.BCode)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.StartDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EndDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Cost)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.PCode > 0)
+                                            {
+                                                @Html.Label("P") @Html.DisplayFor(modelItem => item.PCode)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No PCode", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.DCode > 0)
+                                            {
+                                                @Html.Label("D") @Html.DisplayFor(modelItem => item.DCode)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No DCode", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.BCode > 0)
+                                            {
+                                                @Html.Label("B") @Html.DisplayFor(modelItem => item.BCode)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No BCode", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @item.StartDate.Value.ToString("dd/MM/yyyy")
+                                        </td>
+                                        <td>
+                                            @if (item.EndDate != null)
+                                            {
+                                               @item.EndDate.Value.ToString("dd/MM/yyyy")
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No End Date", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Cost) @Html.Label(" ₺")
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID  },new {@class= "btn btn-outline-secondary" }) |
+                                            
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-outline-warning" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>

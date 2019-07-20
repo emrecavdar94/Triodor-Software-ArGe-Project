@@ -1,0 +1,116 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.Projects
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Project Delete</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Project</a></li>
+                <li class="breadcrumb-item active">Delete Confirmation</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <!-- .left-right-aside-column-->
+
+
+                <div class="card-block">
+                    <h4 class="card-title">Are you sure you want to delete this?</h4>
+                    <p class="card-text">
+                        <dl class="dl-horizontal">
+                            @if (Model.PCode > 0)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PCode)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PCode)
+                                </dd>
+
+
+
+                            }
+                            @if (Model.DCode > 0)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.DCode)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.DCode)
+                                </dd>
+                            }
+
+                            @if (Model.BCode > 0)
+                            {
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.BCode)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.BCode)
+                                </dd>
+                            }
+
+
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.StartDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.EndDate)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Cost)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Cost)
+                            </dd>
+
+                        </dl>
+                    </p>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-actions no-color">
+                            <input type="submit" value="Delete" class="btn btn-warning" /> |
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

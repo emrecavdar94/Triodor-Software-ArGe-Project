@@ -1,0 +1,1607 @@
+﻿
+@model TriodorArgeProject.Entities.EntityClasses.SuppProjects
+
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    decimal? totalEquipmentCost = 0;
+    decimal? totalArgeCost = 0;
+    decimal? totalPersonnelCost = 0;
+    decimal? totalServiceCost = 0;
+    decimal? totalMaterialCost = 0;
+    decimal? totalTravelCost = 0;
+    decimal? totalActual = 0;
+    decimal? totalPlanned = 0;
+    decimal? totalAccapted = 0;
+    if (Model.SuppProjectCosts != null)
+    {
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+
+            totalEquipmentCost = item.EquipmentCosts.Sum(x => x.Actual);
+        }
+
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+            totalPersonnelCost = item.PersonnelCosts.Sum(x => x.ActualManMonth);
+        }
+
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+            totalArgeCost = item.ArgeCost.Sum(x => x.Actual);
+        }
+
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+            totalServiceCost = item.ServiceCosts.Sum(x => x.Actual);
+        }
+
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+            totalMaterialCost = item.MaterialCosts.Sum(x => x.Actual);
+        }
+
+        foreach (var item in Model.SuppProjectCosts)
+        {
+            totalTravelCost = item.TravelCosts.Sum(x => x.Actual);
+        }
+
+    }
+    }
+
+        <div class="container-fluid">
+
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="row page-titles">
+                <div class="col-md-6 col-8 align-self-center">
+                    <h3 class="text-themecolor m-b-0 m-t-0">Support Project Detail</h3>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Support Project</a></li>
+                        <li class="breadcrumb-item active">Support Project Detail</li>
+                    </ol>
+                </div>
+                <div class="col-md-6 col-4 align-self-center">
+                   @Html.ActionLink("Back to List", "Index", null, new { @class= "btn pull-right hidden-sm-down btn-success" });
+                   @Html.ActionLink("AddCost", "AddCost",new { id=Model.ID}, new { @class = "btn pull-right btn-inverse" });
+                    <div class="dropdown pull-right m-r-10 hidden-sm-down show">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+                            @if (ViewBag.SELECTEDPERIOD != null)
+                            {
+                                @ViewBag.SELECTEDPERIOD;
+                            }
+                            else
+                            {
+                                @Html.Label("Period")
+                            }
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (var item in ViewBag.YEARPERIOD)
+                            {
+                                <a class="dropdown-item" href="/SupportProject/Detail?id=@Model.ID&yearperioddata=@item.YearPeriod">@item.YearPeriod</a>
+                            }
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Budget</h4>
+                            <div class="text-right">
+                                @if (Model.Budget > 0)
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> @Model.Budget ₺</h2>
+                                }
+                                else
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> No Record</h2>
+                                }
+
+                                <span class="text-muted">Project Budget</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Cost</h4>
+                            <div class="text-right">
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Sum(s=>s.Actual) >= 0)
+                                    {
+                                        <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> @Model.SuppProjectCosts.Sum(s => s.Actual) ₺</h2>
+                                    }
+                                    else
+                                    {
+                                        <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> No Record</h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> No Record</h2>
+                                }
+                                <span class="text-muted">Total Cost</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Planned Man Month</h4>
+                            <div class="text-right">
+                                @if (Model.PlannedManMonth != null)
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> @Model.PlannedManMonth</h2>
+                                }
+                                else
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> No Record</h2>
+                                }
+                                <span class="text-muted">Planned Man Month</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- Column -->
+                <!-- Column -->
+                <div class="col-lg-3 col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Suport Rate</h4>
+                            <div class="text-right">
+                                @if (Model.SupportRate > 0)
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i> %@Model.SupportRate</h2>
+                                }
+                                else
+                                {
+                                    <h2 class="font-light m-b-0"><i class="ti-info text-info"></i>No Record</h2>
+                                }
+
+                                <span class="text-muted">Todays Income</span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Personnels of the Support Projects</h4>
+                            </div>
+                            <br />
+                            <div class="col-md-12">
+                                @Html.ActionLink("Add Personnels", "AddPersonnel", new { id = Model.ID }, new { @class = "btn btn-inverse pull-right" })
+                            </div>
+                         
+                        </div>
+                        
+                        <div class="card-block collapse show">
+
+
+
+
+                            <div class="table-responsive m-t-40">
+                                <table class="table stylish-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Assigned</th>
+                                            <th>Register No</th>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectPersonnels.Count > 0)
+                                        {
+                                            foreach (var item in Model.SuppProjectPersonnels)
+                                            {
+                                                <tr>
+                                                    <td><span class="round round-success"> @item.Personnels.Name.Substring(0, 1)</span></td>
+                                                    <td>@item.Personnels.RegisterNo</td>
+                                                    <td>@(item.Personnels.Name + " " + item.Personnels.Surname)</td>
+                                                    <td><span class="label label-light-info">@item.Position</span></td>
+                                                    <td>
+                                                        <button type="button" id="editPersonnel" class="btn btn-outline-warning">
+                                                            Edit
+                                                        </button> |
+                                                        <button type="button" data-personnel-id="@item.Personnels.Id" id="deletePersonnel" onclick="deletePersonnel(@item.Personnels.Id)" class="btn btn-outline-danger">
+                                                            Delete
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td>No Record</td>
+                                                <td>No Record</td>
+                                                <td>No Record</td>
+                                                <td>No Record</td>
+
+                                            </tr>
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Project Report</h4>
+                                <div class="d-flex align-items-center flex-row m-t-30">
+                                </div>
+                            </div>
+                            <div class="card-block collapse show">
+
+
+
+                                <div class="p-2">
+                                    <h3 class="m-b-0">Project No :@Model.ProjectNo</h3><small>Triodor Software</small>
+                                </div>
+                                <table class="table no-border">
+                                    <tr>
+                                        <td>Funding Schemes : </td>
+                                        @if (Model.FundingSchemes.Name != null)
+                                        {
+                                            <td class="font-medium">@Model.FundingSchemes.Name</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>Appeal Date : </td>
+                                        @if (Model.AppealDate != null)
+                                        {
+                                            <td class="font-medium">@Model.AppealDate.Value.ToShortDateString()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>Signed Date : </td>
+                                        @if (Model.SignedDate != null)
+                                        {
+                                            <td class="font-medium">@Model.SignedDate.Value.ToShortDateString()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+                                    </tr>
+                                    <tr>
+                                        <td>Support Start Date : </td>
+                                        @if (Model.SuppStartDate != null)
+                                        {
+                                            <td class="font-medium">@Model.SuppStartDate.Value.ToShortDateString()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                    <tr>
+                                        <td>Support End Date : </td>
+                                        @if (Model.SuppEndDate != null)
+                                        {
+                                            <td class="font-medium">@Model.SuppEndDate.Value.ToShortDateString()</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                    <tr>
+                                        <td>Planned Man x Month : </td>
+                                        @if (Model.PlannedManMonth != null)
+                                        {
+                                            <td class="font-medium">@Model.PlannedManMonth Adam Ay</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                    <tr>
+                                        <td>Budget : </td>
+                                        @if (Model.Budget > 0)
+                                        {
+                                            <td class="font-medium">@Model.Budget ₺</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                    <tr>
+                                        <td>Support Rate : </td>
+                                        @if (Model.SupportRate > 0)
+                                        {
+                                            <td class="font-medium">%@Model.SupportRate</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                    <tr>
+                                        <td>Total Cost : </td>
+                                        @if (Model.SuppProjectCosts != null )
+                                        {
+                                         
+                                            <td class="font-medium">@Model.SuppProjectCosts.Sum(s=>s.Actual) ₺</td>
+                                            
+                                        }
+                                        else
+                                        {
+                                            <td class="font-medium">No Record</td>
+                                        }
+
+                                    </tr>
+                                </table>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="social-widget">
+                                    <div class="soc-header box-google">Planned Cost </div>
+                                    <div class="soc-content">
+                                        <div class="col-12 text-center">
+                                            @if (Model.SuppProjectCosts != null)
+                                            {
+                                                if (Model.SuppProjectCosts.Sum(s=>s.Planned) > 0)
+                                                {
+                                                    <h3 class="font-medium">@Model.SuppProjectCosts.Sum(s => s.Planned) ₺</h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="font-medium">No Record</h3>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="font-medium">No Record</h3>
+                                            }
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="social-widget">
+                                    <div class="soc-header box-linkedin">Actual Cost </div>
+                                    <div class="soc-content">
+                                        <div class="col-12 text-center">
+                                            @if (Model.SuppProjectCosts != null)
+                                            {
+                                                if (Model.SuppProjectCosts.Sum(s => s.Actual) > 0)
+                                                {
+                                                    <h3 class="font-medium">@Model.SuppProjectCosts.Sum(s => s.Actual) ₺</h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="font-medium">No Record</h3>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="font-medium">No Record</h3>
+                                            }
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="social-widget">
+                                    <div class="soc-header box-facebook">Accepted Cost </div>
+                                    <div class="soc-content">
+                                        <div class="col-12 text-center">
+                                            @if (Model.SuppProjectCosts != null)
+                                            {
+                                                if (Model.SuppProjectCosts.Sum(s => s.Accepted) > 0)
+                                                {
+                                                    <h3 class="font-medium">@Model.SuppProjectCosts.Sum(s => s.Accepted) ₺</h3>
+                                                }
+                                                else
+                                                {
+                                                    <h3 class="font-medium">No Record</h3>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h3 class="font-medium">No Record</h3>
+                                            }
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Personnel Cost</h4>
+                                <h2> Total Cost : <span class="text-success"> @totalPersonnelCost</span></h2>
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddPersonnelCost", new {id=Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>NAME</th>
+                                            <th>MAN MONTH</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x=>x.PersonnelCosts) != null)
+                                            {
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                    foreach (var item in item2.PersonnelCosts)
+                                                    	{
+                                                    	
+                                                    	
+                                        <tr>
+
+                                            <td class="txt-oflo">@(item.Personnels.Name + " " + item.Personnels.Surname)</td>
+                                            <td class="txt-oflo">@item.ActualManMonth </td>
+                                            <td class="txt-oflo">@item.PlannedManMonth </td>
+                                            <td class="txt-oflo">@item.AcceptedManMonth </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo">@item2.Period</td>
+                                            <th>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Notes" data-original-title="Personnel Cost Notes">
+                                                    Show
+                                                </button>
+                                            </th>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editPersonnelCost" class="btn btn-xs btn-outline-warning"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deletePersonnelCost(@item.ID);" id="deletePersonnelCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+                                                  
+                                                </div>
+                                               
+                                            </td>
+
+                                        </tr>
+                                                }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record </td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <th class="txt-oflo">No Record</th>
+                                                </tr>
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+                                            <tr>
+
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record </td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <th class="txt-oflo">No Record</th>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Service Cost</h4>
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Select(x=>x.ServiceCosts) != null)
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">@totalServiceCost ₺</span>
+                                        </h2>
+                                    }
+                                    else
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">No Record</span>
+                                        </h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2>
+                                        Total Cost : <span class="text-success">No Record</span>
+                                    </h2>
+                                }
+
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddServiceCost", new { id = Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>SERVICE</th>
+                                            <th>ACTUAL</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x=>x.ServiceCosts) != null)
+                                            {
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                    foreach (var item in item2.ServiceCosts)
+                                                    {
+                                        <tr>
+
+                                            <td class="txt-oflo">@item.Description</td>
+                                            <td class="txt-oflo">@item.Actual ₺ </td>
+                                            <td class="txt-oflo">@item.Planned ₺ </td>
+                                            <td class="txt-oflo">@item.Accepted ₺ </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo">@item2.Period</td>
+                                            <th>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Note" data-original-title="Service Cost Notes">
+                                                    Show
+                                                </button>
+                                            </th>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editServiceCost" class="btn btn-xs btn-outline-warning"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deleteServiceCost(@item.ID);" id="deleteServiceCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+
+                                                </div>
+                                              
+                                            </td>
+                                        </tr>
+                                                    }
+                                                            } }
+                                                        else
+                                                        {
+                                        <tr>
+
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <th class="txt-oflo">No Record</th>
+                                        </tr>
+                                                                        }
+                                        }
+                                                                    else
+                                                                    {
+                                        <tr>
+
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <td class="txt-oflo">No Record</td>
+                                            <th class="txt-oflo">No Record</th>
+                                        </tr>
+                                                                            }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Equipment Cost</h4>
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Select(x=>x.EquipmentCosts) != null)
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">@totalEquipmentCost ₺</span>
+                                        </h2>
+                                    }
+                                    else
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">No Record</span>
+                                        </h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2>
+                                        Total Cost : <span class="text-success">No Record</span>
+                                    </h2>
+                                }
+
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddEquipmentCost", new { id = Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+
+                                        <tr>
+                                            <th>EQUIPMENT</th>
+                                            <th>ACTUAL</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x => x.EquipmentCosts) != null)
+                                            {
+
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                        foreach (var item in item2.EquipmentCosts)
+                                                        {
+                                        <tr>
+
+                                            <td class="txt-oflo">@item.Description</td>
+                                            <td class="txt-oflo">@item.Actual ₺  </td>
+                                            <td class="txt-oflo">@item.Planned ₺  </td>
+                                            <td class="txt-oflo">@item.Accepted ₺  </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo">@item2.Period</td>
+                                            <td>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Note" data-original-title="Equipment Cost Notes">
+                                                    Show
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editEquipmentCost" class="btn btn-xs btn-outline-warning"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deleteEquipmentCost(@item.ID);" id="deleteEquipmentCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+
+                                                </div>
+                                            </td>
+                                        </tr>
+                                                        }
+
+                                                            } }
+                                                        else
+                                                        {
+                                                                            <tr>
+
+                                                                                <td class="txt-oflo">No Record</td>
+                                                                                <td class="txt-oflo">No Record</td>
+                                                                                <td class="txt-oflo">No Record</td>
+                                                                                <td class="txt-oflo">No Record</td>
+                                                                                <th class="txt-oflo">No Record</th>
+                                                                            </tr>}
+
+
+                                        }
+                                                                    else
+                                                                    {
+                                                                        <tr>
+
+                                                                            <td class="txt-oflo">No Record</td>
+                                                                            <td class="txt-oflo">No Record</td>
+                                                                            <td class="txt-oflo">No Record</td>
+                                                                            <td class="txt-oflo">No Record</td>
+                                                                            <th class="txt-oflo">No Record</th>
+                                                                        </tr>}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        @Bootstrap.ModalPopup("addPersonnel", "Add Personnel ", true);
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Meterial Cost</h4>
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Select(x=>x.MaterialCosts) != null)
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">@totalMaterialCost ₺</span>
+                                        </h2>
+                                    }
+                                    else
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">No Record</span>
+                                        </h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2>
+                                        Total Cost : <span class="text-success">No Record</span>
+                                    </h2>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddMaterialCost", new { id = Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>MATERIAL</th>
+                                            <th>ACTUAL</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x => x.MaterialCosts) != null)
+                                            {
+
+
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                    foreach (var item in item2.MaterialCosts)
+                                                    {
+                                        <tr>
+
+                                            <td class="txt-oflo">@item.Description</td>
+                                            <td class="txt-oflo">@item.Actual ₺ </td>
+                                            <td class="txt-oflo">@item.Planned ₺ </td>
+                                            <td class="txt-oflo">@item.Accepted ₺ </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo">@item2.Period</td>
+                                            <td>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Note" data-original-title="Material Cost Notes">
+                                                    Show
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editMaterialCost" class="btn btn-xs btn-outline-warning"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deleteMaterialCost(@item.ID);" id="deleteMaterialCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+
+                                                </div>
+                                              
+                                            </td>
+                                        </tr>
+                                                                }
+                                                            }
+                                                        }
+                                                        else
+                                                        {
+                                                <tr>
+
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record </td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <th class="txt-oflo">No Record</th>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record </td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <th class="txt-oflo">No Record</th>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Travel Cost</h4>
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Select(x => x.TravelCosts) != null)
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">@totalTravelCost ₺</span>
+                                        </h2>
+                                    }
+                                    else
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">No Record</span>
+                                        </h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2>
+                                        Total Cost : <span class="text-success">No Record</span>
+                                    </h2>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddTravelCost", new { id = Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>NAME</th>
+                                            <th>ACTUAL</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x => x.TravelCosts) != null)
+                                            {
+
+
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                    foreach(var item in item2.TravelCosts) { 
+                                        <tr>
+
+                                            <td class="txt-oflo">@(item.Personnels.Name + " " + item.Personnels.Surname)</td>
+                                            <td class="txt-oflo">@item.Actual ₺ </td>
+                                            <td class="txt-oflo">@item.Planned ₺ </td>
+                                            <td class="txt-oflo">@item.Accepted ₺ </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo">@item2.Period</td>
+                                            <td>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Notes" data-original-title="Travel Cost Notes">
+                                                    Show
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editTravelCost" class="btn btn-xs btn-outline-warning"><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deleteTravelCost(@item.ID);" id="deleteTravelCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+
+                                                </div>
+                                              
+                                            </td>
+                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                            
+                                        }
+                                        else
+                                        {
+                                            <tr>
+
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record </td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <th class="txt-oflo">No Record</th>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-actions">
+                            <a class="btn-minimize" data-perform="card-collapse"><i class="ti-minus"></i></a>
+
+                        </div>
+                        <div class="card-title">
+                            <div class="col-md-12">
+                                <h4>Arge Cost</h4>
+                                @if (Model.SuppProjectCosts != null)
+                                {
+                                    if (Model.SuppProjectCosts.Select(x=>x.ArgeCost) != null)
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">@totalArgeCost ₺</span>
+                                        </h2>
+                                    }
+                                    else
+                                    {
+                                        <h2>
+                                            Total Cost : <span class="text-success">No Record</span>
+                                        </h2>
+                                    }
+                                }
+                                else
+                                {
+                                    <h2>
+                                        Total Cost : <span class="text-success">No Record</span>
+                                    </h2>
+                                }
+                            </div>
+
+                        </div>
+                        <div class="card-block collapse show">
+
+                            @Html.ActionLink("Add", "AddArgeCost", new { id=Model.ID }, new { @class = "btn btn-inverse" })
+                            <br />
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>DESCRIPTION</th>
+                                            <th>ACTUAL</th>
+                                            <th>PLANNED</th>
+                                            <th>ACCEPTED</th>
+                                            <th>YEAR</th>
+                                            <th>PERİOD</th>
+                                            <th>NOTE</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.SuppProjectCosts != null)
+                                        {
+                                            if (Model.SuppProjectCosts.Select(x=>x.ArgeCost) != null)
+                                            {
+
+
+                                                foreach (var item2 in Model.SuppProjectCosts)
+                                                {
+                                                    foreach(var item in item2.ArgeCost) { 
+                                        <tr>
+
+                                            <td class="txt-oflo">@item.Description</td>
+                                            <td class="txt-oflo">@item.Actual ₺ </td>
+                                            <td class="txt-oflo">@item.Planned ₺ </td>
+                                            <td class="txt-oflo">@item.Accepted ₺ </td>
+                                            <td class="txt-oflo">@item2.Year</td>
+                                            <td class="txt-oflo" width="2%">@item2.Period</td>
+                                            <td>
+                                                <button type="button" class="btn btn-secondary" data-container="body" title="" data-toggle="popover" data-placement="top" data-content="@item.Notes" data-original-title="Arge Cost Notes">
+                                                    Show
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <button type="button" id="editArgeCost" class="btn btn-xs btn-outline-warning"  onclick="location.href='@Url.Action("EditArgeCost", "SupportProject",new {id=item.ID })'" ><i class="fa fa-edit"></i></button>
+                                                    <button type="button" onclick="deleteArgeCost(@item.ID);" id="deleteArgeCost" class="btn btn-xs btn-outline-danger"><i class="fa fa-times"></i></button>
+
+                                                </div>
+                                               
+                                            </td>
+                                        </tr>
+                                                    }
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <tr>
+
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record </td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <td class="txt-oflo">No Record</td>
+                                                    <th class="txt-oflo">No Record</th>
+                                                </tr>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record </td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <td class="txt-oflo">No Record</td>
+                                                <th class="txt-oflo">No Record</th>
+                                            </tr>
+
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+   function deletePersonnel (personnelID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                
+                $.ajax({
+            method: "GET",
+                    url: "/SupportProject/DeletePersonnel?id=" + personnelID
+        }).done(function (jsnData) {
+            
+            if (jsnData.result) {
+                swalWithBootstrapButtons.fire({
+                    title: 'Deleted!',
+                    text: 'Personnel has been deleted.',
+                    type: 'success'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
+            else {
+                swalWithBootstrapButtons.fire(
+                    'Error',
+                    'Internal Server Error',
+                    'error'
+                )
+            }
+
+        });
+                
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+   function deletePersonnelCost (personnelCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+              
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeletePersonnelCost?id=" + personnelCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+    function deleteServiceCost (serviceCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeleteServiceCost?id=" + serviceCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+
+    function deleteArgeCost(argeCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeleteArgeCost?id=" + argeCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+
+    function deleteEquipmentCost (equipmentCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeleteEquipmentCost?id=" + equipmentCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+   function deleteMaterialCost (materialCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeleteMaterialCost?id=" + materialCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+
+    function deleteTravelCost (travelCostID) {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+               
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/DeleteTravelCost?id=" + travelCostID
+                }).done(function (jsnData) {
+
+                    if (jsnData.result) {
+                        swalWithBootstrapButtons.fire({
+                            title: 'Deleted!',
+                            text: 'Personnel has been deleted.',
+                            type: 'success'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    }
+                    else {
+                        swalWithBootstrapButtons.fire(
+                            'Error',
+                            'Internal Server Error',
+                            'error'
+                        )
+                    }
+
+                });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    };
+</script>

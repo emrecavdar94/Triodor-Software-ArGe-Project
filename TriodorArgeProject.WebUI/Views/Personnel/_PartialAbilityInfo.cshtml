@@ -1,0 +1,23 @@
+﻿@model List<TriodorArgeProject.Entities.EntityClasses.PersonnelAbility>
+<div class="table-responsive">
+    <table class="table color-table info-table">
+        <thead>
+            <tr>
+                <th>Ability</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var abilityInfo in Model)
+            {
+                <tr>
+                    <td>@abilityInfo.Description</td>
+            
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

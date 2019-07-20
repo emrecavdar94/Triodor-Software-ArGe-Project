@@ -1,0 +1,24 @@
+﻿@model List<TriodorArgeProject.Entities.EntityClasses.WorkExperiences>
+<div class="table-responsive">
+    <table class="table color-table info-table">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var workExperienceInfo in Model)
+            {
+                <tr>
+                    <td>@workExperienceInfo.Description</td>
+                    <td>@workExperienceInfo.StartYear</td>
+                    <td>@workExperienceInfo.EndYear</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+

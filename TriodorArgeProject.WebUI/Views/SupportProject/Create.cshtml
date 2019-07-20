@@ -1,0 +1,185 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.SuppProjects
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Create Project</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Project</a></li>
+                <li class="breadcrumb-item active">Create Project</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-block">
+                    @if (TempData["mesaj"] != null)
+                    {
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                @TempData["mesaj"]
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-body">
+
+                            <div class="row p-t-20">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="control-label">Project No</label>
+                                        <input type="text" id="ProjectNo" name="ProjectNo" class="form-control">
+                                        @Html.ValidationMessageFor(model => model.ProjectNo)
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Funding Schemes</label>
+                                        @Html.DropDownListFor(x => x.FundingSchemesID, new SelectList(ViewBag.FUNDINGSCHEMES, "ID", "Name"), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.FundingSchemesID)
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label">Status</label>
+                                        @Html.DropDownListFor(x => x.StatusID, new SelectList(ViewBag.STATUS, "ID", "Status"), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.StatusID)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-4">
+                                    <div class="form-group ">
+                                        <label class="control-label">Appeal Date</label>
+                                        <input type="date" class="form-control" name="AppealDate" id="SignedDate" placeholder="dd/mm/yyyy">
+                                        @Html.ValidationMessageFor(model => model.AppealDate)
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Signed Date</label>
+                                        <input type="date" class="form-control" id="SignedDate" name="SignedDate" placeholder="dd/mm/yyyy">
+                                        @Html.ValidationMessageFor(model => model.SignedDate)
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Support Start Date</label>
+                                        <input type="date" class="form-control" id="SuppStartDate" name="SuppStartDate" placeholder="dd/mm/yyyy">
+                                        @Html.ValidationMessageFor(model => model.SuppStartDate)
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Support End Date</label>
+                                        <input type="date" class="form-control" id="SuppEndDate" name="SuppEndDate" placeholder="dd/mm/yyyy">
+                                        @Html.ValidationMessageFor(model => model.SuppEndDate)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label">Planned Man Month</label>
+                                        <input type="text" id="PlannedManMonth" name="PlannedManMonth" class="form-control">
+                                        @Html.ValidationMessageFor(model => model.PlannedManMonth)
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Budget</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="Budget" name="Budget" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Budget)
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-4">
+                                    <label class="control-label">Supoort Rate</label>
+                                    <div class="input-group ">
+
+                                        <input type="text" class="form-control" name="SupportRate" id="SupportRate">
+                                        <span class="input-group-addon" id="basic-addon2">%</span>
+
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.SupportRate)
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <label class="control-label">Planned Cost</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="Planned" name="Planned" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Actual Cost</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="Actual" name="Actual" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Accepted Cost</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="Accepted" name="Accepted" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <br />
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>

@@ -1,0 +1,198 @@
+﻿@model IEnumerable<TriodorArgeProject.Entities.EntityClasses.SuppProjects>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Support Project List</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Support Project</a></li>
+                <li class="breadcrumb-item active">Support Project List</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <!-- .left-right-aside-column-->
+
+
+                <div class="card-block">
+                    @if (TempData["mesaj"] != null)
+                    {
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                @TempData["mesaj"]
+                            </div>
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+                            @Html.ActionLink("Import Excel", "Create", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    </div>
+
+                    <div class="table-responsive ">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ProjectNo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SuppProjectsStatus.Status)
+                                    </th>
+                                    <th>
+                                        Funding Name
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Budget)
+                                    </th>
+
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (item.ProjectNo != null)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.ProjectNo)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No Project No", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.StatusID > 0)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.SuppProjectsStatus.Status)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No Record", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.FundingSchemesID > 0)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.FundingSchemes.Name)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No Record", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Budget > 0)
+                                            {
+                                                @Html.DisplayFor(modelItem => item.Budget)
+                                            }
+                                            else
+                                            {
+                                                @Html.Label("No Record", new { @class = "badge badge-danger" })
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-outline-secondary" }) |
+
+                                            <button type="button" id="deleteSuppProject" data-project-id="@item.ID" class="btn btn-outline-warning">Delete</button>
+                                            |
+
+                                            @Html.ActionLink("Detail", "Detail", new { id = item.ID }, new { @class = "btn btn-outline-info" })
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+    $("#deleteSuppProject").click(function () {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+        })
+
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                var projectID = $("#deleteSuppProject").data("project-id");
+                $.ajax({
+                    method: "GET",
+                    url: "/SupportProject/Delete?id=" + projectID
+        }).done(function (jsnData) {
+
+            if (jsnData.result) {
+                swalWithBootstrapButtons.fire({
+                    title: 'Deleted!',
+                    text: 'Personnel has been deleted.',
+                    type: 'success'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
+            else {
+                swalWithBootstrapButtons.fire(
+                    'Error',
+                    'Internal Server Error',
+                    'error'
+                )
+            }
+
+        });
+
+            } else if (
+                // Read more about handling dismissals
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Safe :)',
+                    'error'
+                )
+            }
+        })
+    });
+</script>

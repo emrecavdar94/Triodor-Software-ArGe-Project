@@ -1,0 +1,23 @@
+﻿@model List<TriodorArgeProject.Entities.EntityClasses.PersonnelCertificates>
+<div class="table-responsive">
+    <table class="table color-table info-table">
+        <thead>
+            <tr>
+                <th>Certificate</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var certificateInfo in Model)
+            {
+                <tr>
+                    <td>@certificateInfo.Description</td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,0 +1,484 @@
+﻿@model TriodorArgeProject.WebUI.Models.DashboardViewModel
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/dashboard.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Dashboard</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </div>
+        <div class="col-md-6 col-4 align-self-center">
+            <button class="right-side-toggle waves-effect waves-light btn-info btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
+            <button class="btn pull-right hidden-sm-down btn-success"><i class="mdi mdi-plus-circle"></i> Create</button>
+            <div class="dropdown pull-right m-r-10 hidden-sm-down">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    January 2017
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">February 2017</a>
+                    <a class="dropdown-item" href="#">March 2017</a>
+                    <a class="dropdown-item" href="#">April 2017</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- Row -->
+    <!-- Row -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Support Project / Continuing ArGe Pr</h4>
+                            <div class="d-flex flex-row">
+                                <div class="align-self-center">
+                                    <h6 class="text-muted">Support Project</h6>
+                                    <span class="display-7 text-primary">43 </span>
+                                    <h6 class="text-muted">Arge Project(C)</h6>
+                                    <span class="display-7 text-primary">21</span>
+
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="outer">
+                                        <div id="container-speed" class="chart-container"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Accepted / Planned</h4>
+                            <div class="d-flex flex-row">
+                                <div class="align-self-center">
+                                    <h6 class="text-muted">Accepted</h6>
+                                    <span class="display-7 text-primary">7000900₺</span>
+                                    <h6 class="text-muted">Planned</h6>
+                                    <span class="display-7 text-primary">800900₺</span>
+
+                                </div>
+                                <div class="ml-auto">
+                                    <div class="outer">
+                                        <div id="container-acceptedplanned" class="chart-container"></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Support / Arge Personnel</h4>
+                            <div class="d-flex flex-row">
+                                <div class="align-self-center">
+                                    <h6 class="text-muted">Arge Personnel</h6>
+                                    <span class="display-7 text-primary">43</span>
+                                    <h6 class="text-muted">Support Personnel</h6>
+                                    <span class="display-7 text-primary">21</span>
+
+                                </div>
+                                <div class="ml-auto ">
+                                    <div class="outer ">
+                                        <div id="container-personnel" class="chart-container "></div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">123</span>
+                            <h6>Tamamlanan</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right  p-l-0">
+                            <div id="sparklinedash3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">34 </span>
+                            <h6>Devam Eden</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                            <div id="sparklinedash"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">23 </span>
+                            <h6>Planlanan</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                            <div id="sparklinedash2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- Row -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="row">
+                    <div class="col-lg-9 col-md-7">
+                        <div class="card-block">
+                            <h3>Realtime Data of visits</h3>
+                            <h6 class="card-subtitle">Mon 05 Mar 2017</h6>
+                            <div class="demo-container" style="height:400px;">
+                                <div id="placeholder" class="flot-chart-content" style="padding: 0px; position: relative;">
+                                    <div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-5 b-l p-l-0">
+                        <center class="m-t-30 m-b-40 p-t-20 p-b-20">
+                            <font class="display-3">25</font>
+                            <h6 class="text-muted">Total Support Project</h6>
+                            <button type="button" class="btn btn-success">Go to List</button>
+                        </center>
+                        <hr>
+                        <div class="card-block">
+                            <div class="row">
+                                <!-- Column -->
+                                <div class="col p-r-0">
+                                    <h1 class="font-light">15000₺</h1>
+                                    <h6 class="text-muted">Total Accapted</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Column -->
+                                <div class="col p-r-0">
+                                    <h1 class="font-light">5700000₺</h1>
+                                    <h6 class="text-muted">Total Planned</h6>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Column -->
+                                <div class="col p-r-0">
+                                    <h1 class="font-light">8123466₺</h1>
+                                    <h6 class="text-muted">Total Actual</h6>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">110</span>
+                            <h6>Personel Sayısı</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right  p-l-0">
+                            <div id="sparklinedash3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">34 </span>
+                            <h6>Devam Eden</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                            <div id="sparklinedash"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <div class="col-lg-4 col-md-6">
+            <div class="card">
+                <div class="card-block">
+                    <!-- Row -->
+                    <div class="row">
+                        <div class="col-8">
+                            <span class="display-6">23 </span>
+                            <h6>Planlanan</h6>
+                        </div>
+                        <div class="col-4 align-self-center text-right p-l-0">
+                            <div id="sparklinedash2"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script src="~/Content/Tema/assets/plugins/Chart.js/Chart.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script>
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Destek projelerinin programlara göre dağılımları'
+        },
+        tooltip: {
+            pointFormat: '{point.name}: <b>{point.y}</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.y} '
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [{
+                name: 'KOSGEB',
+                y: 40,
+                sliced: true,
+                selected: true
+            }, {
+                name: 'TUBITAK',
+                y:3
+            }]
+        }]
+    });
+    var gaugeOptions = {
+
+        chart: {
+            type: 'solidgauge'
+        },
+
+        title: null,
+
+        pane: {
+            center: ['50%', '85%'],
+            size: '140%',
+            startAngle: -90,
+            endAngle: 90,
+            background: {
+                backgroundColor:
+                    Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                innerRadius: '60%',
+                outerRadius: '100%',
+                shape: 'arc'
+            }
+        },
+
+        tooltip: {
+            enabled: false
+        },
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            minorTickInterval: null,
+            tickAmount: 2,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 16
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    // The speed gauge
+    var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100
+
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+
+            data: [80],
+            dataLabels: {
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}</span><br/>' +
+                    '<span style="font-size:12px;opacity:0.4">%</span>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+
+    }));
+
+    // The RPM gauge
+    var chartacceptedplanned = Highcharts.chart('container-acceptedplanned', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100
+
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+
+            data: [27],
+            dataLabels: {
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}</span><br/>' +
+                    '<span style="font-size:12px;opacity:0.4">%</span>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+
+    }));
+    var chartpersonnel = Highcharts.chart('container-personnel', Highcharts.merge(gaugeOptions, {
+        yAxis: {
+            min: 0,
+            max: 100
+
+        },
+
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+
+            data: [27],
+            dataLabels: {
+                format:
+                    '<div style="text-align:center">' +
+                    '<span style="font-size:25px">{y}</span><br/>' +
+                    '<span style="font-size:12px;opacity:0.4">%</span>' +
+                    '</div>'
+            },
+            tooltip: {
+                valueSuffix: ' %'
+            }
+        }]
+
+    }));
+</script>

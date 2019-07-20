@@ -1,0 +1,16 @@
+﻿@using TriodorArgeProject.Entities.EntityClasses
+@model List<Projects>
+<div class="left-aside">
+    <ul class="list-style-none">
+        <li class="box-label"><a href="javascript:void(0)">All Projects <span>@Model.Count</span></a></li>
+        <li class="divider"></li>
+        @foreach (var project in Model)
+        {
+            <li><a href="javascript:getRightSide(@project.ID)">@project.Name <span>@project.PersonnelProjectsTable.Count</span></a></li>
+        }
+
+
+        <li class="box-label"><a href="javascript:void(0)">+ Add Project</a></li>
+        
+    </ul>
+</div>

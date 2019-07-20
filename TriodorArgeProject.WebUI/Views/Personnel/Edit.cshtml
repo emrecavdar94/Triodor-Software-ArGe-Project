@@ -1,0 +1,210 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.Personnels
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Create Personnel</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Personnel</a></li>
+                <li class="breadcrumb-item active">Create Personnel</li>
+            </ol>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                @if (TempData["personelmesaj"] != null)
+                {
+                    <h2><span class="label label-info">@TempData["personelmesaj"]</span></h2>
+                }
+                <div class="card-block wizard-content">
+                    @Html.ActionLink("Back to List", "PersonnelList", null, new { @class = "btn btn-inverse" })
+                    @Html.ActionLink("Add Detail Info", "AddDetail", new { id = Model.Id }, new { @class="btn btn-warning"})
+                    <form action="Edit" id="personneleditform" class="tab-wizard wizard-circle" method="post">
+                        @Html.AntiForgeryToken()
+                        <!-- Step 1 -->
+                        <h6>Personal Info</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="firstname">First Name :</label>
+                                        <input type="text" class="form-control" id="firstname" value="@Model.Name" name="firstname">
+                                       </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="lastname">Last Name :</label>
+                                        <input type="text" class="form-control" id="lastname" name="lastname" value="@Model.Surname">
+                                        </div>
+                                </div>
+                            </div>
+
+
+                        </section>
+                        <!-- Step 2 -->
+                        <h6>Job Status</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="registerno">Register No :</label>
+                                        <input type="text" class="form-control" id="registerno" name="registerno" value="@Model.RegisterNo">
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="startdate">Start Date :</label>
+                                        <input type="date" class="form-control" id="startdate" name="startdate" value="@Model.StartDate">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="startdate">Position :</label>
+                                        <input type="text" class="form-control" id="position" name="position" value="@Model.Positions.Position">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="date1">Work / Not Work</label>
+                                        <div class="radio radio-success">
+                                            <input type="radio" class="work" name="work" id="working" value="Yes" checked>
+                                            <label for="working"> Working </label>
+                                        </div>
+                                        <div class="radio radio-danger">
+                                            <input type="radio" class="work" name="work" id="notworking" value="No">
+                                            <label for="notworking"> Not Working </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div id="leaveform" class="form-group" style="visibility:hidden">
+                                        <label for="leavedate">Leave Date :</label>
+                                        <input type="date" class="form-control" id="leavedate" name="leavedate" value="@Model.LeaveDate">
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+                        <!-- Step 3 -->
+                        <h6>Account Info</h6>
+                        <section>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="int1">Username :</label>
+                                        <input type="text" class="form-control" id="username" name="username" value="@Model.Users.Username">
+                                    </div>
+
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="jobTitle2">Password :</label>
+                                        <input type="password" class="form-control" id="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="jobTitle2">Re-Password :</label>
+                                        <input type="password" class="form-control" id="repassword" name="repassword">
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </section>
+                        <!-- Step 4 -->
+                        @*<h6>personnel detail</h6>
+                            <section>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="jobtitle2">education ınfo</label>
+                                        <button type="button" class="btn btn-inverse pull-right">add new</button>
+                                        <hr />
+                                        <div id="educationinfo"></div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="jobtitle2">certficate ınfo</label>
+                                        <button type="button" class="btn btn-inverse  pull-right">add new</button>
+                                        <hr />
+                                        <div id="certificateinfo"></div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="jobtitle2">ability ınfo</label>
+                                        <button type="button" class="btn btn-inverse pull-right">add new</button>
+                                        <hr />
+                                        <div id="abilityinfo"></div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="jobtitle2">work experience ınfo</label>
+                                        <button type="button" class="btn btn-inverse  pull-right">add new</button>
+                                        <hr />
+                                        <div id="workexperienceinfo"></div>
+
+                                    </div>
+                                </div>
+                            </section>*@
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@*@Bootstrap.ModalPopup("addEducation","Add Education Info",true)
+    @Bootstrap.ModalPopup("addCertificate","Add Certificate Info",true)
+    @Bootstrap.ModalPopup("addWorkExperience","Add Work Experience Info",true)
+    @Bootstrap.ModalPopup("addAbility","Add Ability Info",true)*@
+<script src="~/Scripts/jquery-3.0.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+       @* $("#educationinfo").load("/Personnel/GetEducationInfo/");
+        $("#certificateinfo").load("/Personnel/GetCertificateInfo/");
+        $("#workexperience").load("/Personnel/GetWorkExperienceInfo/");
+        $("#abilityinfo").load("/Personnel/GetAbilityInfo/");*@
+        document.querySelectorAll('[role="menuitem"][href="#finish"]').forEach(function (el) {
+            $(el).attr("onclick", "document.getElementById('personnelcreateform').submit();");
+        });
+        $('input[name="work"]').change(function () {
+            if ($('#working').prop('checked')) {
+                $("#leaveform").css("visibility", "hidden");
+            } else {
+                $("#leaveform").css("visibility", "visible");
+            }
+        });
+    });
+    $(function () {
+        $("addEducation").on('show.bs.modal', function () {
+            $("addEducation_body").load("/Personnel/GetAddEducation");
+        });
+        $("addCertificate").on('show.bs.modal', function () {
+            $("addCertificate_body").load("/Personnel/GetAddCertificate");
+        });
+        $("addWorkExperience").on('show.bs.modal', function () {
+            $("addWorkExperience_body").load("/Personnel/GetAddWorkExperience");
+        });
+        $("addAbility").on('show.bs.modal', function () {
+            $("addAbility_body").load("/Personnel/GetAddAbility");
+        });
+    });
+</script>
+

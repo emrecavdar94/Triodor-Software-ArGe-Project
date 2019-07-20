@@ -1,0 +1,121 @@
+﻿@model TriodorArgeProject.Entities.EntityClasses.SuppProjects
+@{
+    ViewBag.Title = "AddCost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-6 col-8 align-self-center">
+            <h3 class="text-themecolor m-b-0 m-t-0">Add Arge Cost</h3>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Support Project</a></li>
+                <li class="breadcrumb-item active">Add Arge Cost</li>
+            </ol>
+        </div>
+
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-block">
+                    @if (ViewBag.COSTMESSAGE != null)
+                    {
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" role="alert">
+                                @ViewBag.COSTMESSAGE
+                            </div>
+                        </div>
+                    }
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("id",Model.ID)
+                        <div class="form-body">
+
+                            <div class="row p-t-20">
+                                <div class="col-md-4">
+                                    <label class="control-label">Actual</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="actual" name="actual" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Planned</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="planned" name="planned" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="control-label">Accepted</label>
+                                    <div class="input-group">
+
+                                        <input type="text" id="accepted" name="accepted" class="form-control">
+                                        <span class="input-group-addon" id="basic-addon2">₺</span>
+
+                                    </div>
+                                </div>
+
+
+                                <!--/span-->
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Year</label>
+                                        <input type="text" class="form-control" name="year" id="year">
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Period</label>
+                                        <select name="period" style="width:100%" class="custom-select col-12"><option selected value="1">1</option><option value="2">2</option></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--/row-->
+
+                            <br />
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Save</button>
+
+                            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-inverse" })
+                        </div>
+                    }
+                </div>
+
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right sidebar -->
+        <!-- ============================================================== -->
+        <!-- .right-sidebar -->
+        <!-- ============================================================== -->
+        <!-- End Right sidebar -->
+        <!-- ============================================================== -->
+    </div>
+</div>
+
